@@ -104,6 +104,8 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -113,6 +115,8 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -122,6 +126,8 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -132,7 +138,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Memory.cpp" />
     <ClCompile Include="telaPrincipal.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 
-#include <vector>
+#include "Memory.h"
+#include "tabela.h"
 
 namespace Calculadora {
 
@@ -21,7 +22,7 @@ namespace Calculadora {
 		telaPrincipal(void)
 		{
 
-			
+			memoria = new Memory();
 			InitializeComponent();
 		}
 
@@ -40,7 +41,9 @@ namespace Calculadora {
 	private: System::Windows::Forms::Button^  btnClear;
 	private: System::Windows::Forms::Button^  btnExecute;
 	private: System::Windows::Forms::Button^  btn9;
+	private: Memory *memoria;
 	protected:
+
 	
 
 	private: System::Windows::Forms::Button^  btn8;
@@ -603,7 +606,7 @@ namespace Calculadora {
 			this->btnArcsin->TabIndex = 38;
 			this->btnArcsin->Text = L"arcsin";
 			this->btnArcsin->UseVisualStyleBackColor = false;
-			this->btnArcsin->Click += gcnew System::EventHandler(this, &telaPrincipal::button1_Click);
+			this->btnArcsin->Click += gcnew System::EventHandler(this, &telaPrincipal::btnArcsin_Click);
 			// 
 			// btnArccos
 			// 
@@ -616,6 +619,7 @@ namespace Calculadora {
 			this->btnArccos->TabIndex = 39;
 			this->btnArccos->Text = L"arccos";
 			this->btnArccos->UseVisualStyleBackColor = false;
+			this->btnArccos->Click += gcnew System::EventHandler(this, &telaPrincipal::btnArccos_Click);
 			// 
 			// btnArctg
 			// 
@@ -628,6 +632,7 @@ namespace Calculadora {
 			this->btnArctg->TabIndex = 40;
 			this->btnArctg->Text = L"arctg";
 			this->btnArctg->UseVisualStyleBackColor = false;
+			this->btnArctg->Click += gcnew System::EventHandler(this, &telaPrincipal::btnArctg_Click);
 			// 
 			// btnBackspace
 			// 
@@ -638,6 +643,7 @@ namespace Calculadora {
 			this->btnBackspace->Size = System::Drawing::Size(49, 28);
 			this->btnBackspace->TabIndex = 41;
 			this->btnBackspace->UseVisualStyleBackColor = false;
+			this->btnBackspace->Click += gcnew System::EventHandler(this, &telaPrincipal::btnBackspace_Click_1);
 			// 
 			// btn4
 			// 
@@ -734,92 +740,186 @@ namespace Calculadora {
 #pragma endregion
 
 private: System::Void btnNRoot_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_NROOT);
+	caixaTexto->Text += "^(1/";
 }
 private: System::Void btn2_Click(System::Object^  sender, System::EventArgs^  e) {
+	bool retorno = memoria->inserirNovoNumero('2');
+	if (retorno == true) {
+		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
+	}	
 	caixaTexto->Text += "2";
 }
 private: System::Void btn1_Click(System::Object^  sender, System::EventArgs^  e) {
+	bool retorno = memoria->inserirNovoNumero('1');
+	if (retorno == true) {
+		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
+	}
 	caixaTexto->Text += "1";
 }
 private: System::Void btn3_Click(System::Object^  sender, System::EventArgs^  e) {
+	bool retorno = memoria->inserirNovoNumero('3');
+	if (retorno == true) {
+		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
+	}
 	caixaTexto->Text += "3";
 }
 private: System::Void btn4_Click(System::Object^  sender, System::EventArgs^  e) {
+	bool retorno = memoria->inserirNovoNumero('4');
+	if (retorno == true) {
+		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
+	}
 	caixaTexto->Text += "4";
 }
 private: System::Void btn5_Click(System::Object^  sender, System::EventArgs^  e) {
+	bool retorno = memoria->inserirNovoNumero('5');
+	if (retorno == true) {
+		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
+	}
 	caixaTexto->Text += "5";
 }
 private: System::Void btn6_Click(System::Object^  sender, System::EventArgs^  e) {
+	bool retorno = memoria->inserirNovoNumero('6');
+	if (retorno == true) {
+		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
+	}
 	caixaTexto->Text += "6";
 }
 private: System::Void btn7_Click(System::Object^  sender, System::EventArgs^  e) {
+	bool retorno = memoria->inserirNovoNumero('7');
+	if (retorno == true) {
+		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
+	}
 	caixaTexto->Text += "7";
 }
 private: System::Void btn8_Click(System::Object^  sender, System::EventArgs^  e) {
+	bool retorno = memoria->inserirNovoNumero('8');
+	if (retorno == true) {
+		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
+	}
 	caixaTexto->Text += "8";
 }
 private: System::Void btn9_Click(System::Object^  sender, System::EventArgs^  e) {
+	bool retorno = memoria->inserirNovoNumero('9');
+	if (retorno == true) {
+		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
+	}
 	caixaTexto->Text += "9";
 	
 }
 private: System::Void btnClear_Click(System::Object^  sender, System::EventArgs^  e) {
-	caixaTexto->Text = "0";
-}
-private: System::Void btnBackspace_Click(System::Object^  sender, System::EventArgs^  e) {
-	if(caixaTexto->Text->Length > 0){
-		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
-	}
-	else {
-		caixaTexto->Text = "0";
-	}
+	caixaTexto->Text = "";
+	memoria->clearMemory();
 }
 private: System::Void btnExecute_Click(System::Object^  sender, System::EventArgs^  e) {
-	//reste;
+	//TODO
 }
 private: System::Void btnSignal_Click(System::Object^  sender, System::EventArgs^  e) {
 }
 private: System::Void btn0_Click(System::Object^  sender, System::EventArgs^  e) {
+	bool retorno = memoria->inserirNovoNumero('0');
+	if (retorno == true) {
+		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
+	}
+	caixaTexto->Text += "0";
 }
 private: System::Void btnDecimal_Click(System::Object^  sender, System::EventArgs^  e) {
+	int retorno = memoria->decimal();
+	if (retorno == 1) {
+		caixaTexto->Text += "0,";
+	}
+	if(retorno == 0){
+		caixaTexto->Text += ",";
+	}
 }
 private: System::Void btnDiv_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_DIV);
+	caixaTexto->Text += "/";
 }
 private: System::Void btnMul_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_MUL);
+	caixaTexto->Text += "*";
 }
 private: System::Void btnSub_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_SUB);
+	caixaTexto->Text += "-";
 }
 private: System::Void btnAdd_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_ADD);
+	caixaTexto->Text += "+";
 }
 private: System::Void btnSin_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_SIN);
+	caixaTexto->Text += "sin(";
 }
 private: System::Void btnPi_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_PI);
+	caixaTexto->Text += "pi";
 }
 private: System::Void btnOpenP_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_OP);
+	caixaTexto->Text += "(";
 }
 private: System::Void btnCloseP_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_CP);
+	caixaTexto->Text += ")";
 }
 private: System::Void btnTan_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_TG);
+	caixaTexto->Text += "tg(";
 }
 private: System::Void btnCos_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_COS);
+	caixaTexto->Text += "cos(";
 }
 private: System::Void btnSqrt_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_SQRT);
+	caixaTexto->Text += "sqrt(";
 }
 private: System::Void btnExp_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_EXP);
+	caixaTexto->Text += "e^";
 }
 private: System::Void btnLn_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_LN);
+	caixaTexto->Text += "ln(";
 }
 private: System::Void btnSqrd_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_POW2);
+	caixaTexto->Text += "^2";
 }
 private: System::Void btnLog_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_LOG);
+	caixaTexto->Text += "log(";
 }
 private: System::Void btnPow_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_XPOWY);
+	caixaTexto->Text += "^";
 }
 private: System::Void btnFact_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_FAT);
+	caixaTexto->Text += "!";
 }
 private: System::Void telaPrincipal_Load(System::Object^  sender, System::EventArgs^  e) {
 }
-private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+
+private: System::Void btnArccos_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_ARCCOS);
+	caixaTexto->Text += "arccos(";
+}
+private: System::Void btnArctg_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_ARCTG);
+	caixaTexto->Text += "arctg(";
+}
+private: System::Void btnArcsin_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_ARCSIN);
+	caixaTexto->Text += "arcsin(";
+}
+private: System::Void btnBackspace_Click_1(System::Object^  sender, System::EventArgs^  e) {
+	int retorno = memoria->remover();
+	if (caixaTexto->Text->Length > 0) {
+		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - retorno);
+	}
 }
 };
 }

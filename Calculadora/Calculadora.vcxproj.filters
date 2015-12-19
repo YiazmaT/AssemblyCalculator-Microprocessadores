@@ -18,9 +18,6 @@
     <ClCompile Include="telaPrincipal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Memory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="telaPrincipal.h">

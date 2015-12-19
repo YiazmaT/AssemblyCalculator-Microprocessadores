@@ -151,19 +151,18 @@
   </data>
   <data name="btnPi.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAACxMAAAsTAQCanBgAAACRSURBVDhPYxgFQwvwArEqEPOAeRQAMSBeBcS/gfg/EP8C
-        4uVALALEyIAbiLkgTPzgIBCDDLqJRt8H4kAgVgDiYCB+CMR7gJgg8AZiHyCOAGKQQSFAHAvE36B8GP4C
-        xKFATDRANhAEpIF4NhCDxGYAsSQQkwTQDQQBbGJEgxFooDkQvwViYzAPArCJjYLBDRgYADzGKWXscdjA
-        AAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EwAACxMBAJqcGAAAAJFJREFUOE9jGAVDC/ACsSoQ84B5FAAxIF4FxL+B+D8Q/wLi5UAsAsTIgBuIuSBM
+        /OAgEIMMuolG3wfiQCBWAOJgIH4IxHuAmCDwBmIfII4AYpBBIUAcC8TfoHwY/gLEoUBMNEA2EASkgXg2
+        EIPEZgCxJBCTBNANBAFsYkSDEWigORC/BWJjMA8CsImNgsENGBgAPMYpZexx2MAAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="btnBackspace.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAACxMAAAsTAQCanBgAAABlSURBVDhPYxgFQwuoAPFhIFYA8ygEIMMeA/EfIA4GCVAC
-        kA2LBglQAmhi2H8g/gbEN0jAGUCMAUCB/wCIYQZeIQGnATFWADP0LxDHgQSoAWhuaChIgBoAZOgeIJYF
-        80bBUAUMDABaUSk+bHRZDQAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EwAACxMBAJqcGAAAAGVJREFUOE9jGAVDC6gA8WEgVgDzKAQgwx4D8R8gDgYJUAKQDYsGCVACaGLYfyD+
+        BsQ3SMAZQIwBQIH/AIhhBl4hAacBMVYAM/QvEMeBBKgBaG5oKEiAGgBk6B4glgXzRsFQBQwMAFpRKT5s
+        dFkNAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="btnNRoot.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

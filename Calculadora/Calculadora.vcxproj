@@ -141,6 +141,7 @@
     <ClCompile Include="telaPrincipal.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssemblyFunctions.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="tabela.h" />
     <ClInclude Include="telaPrincipal.h">

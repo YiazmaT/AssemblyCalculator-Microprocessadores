@@ -128,5 +128,24 @@ public:
 			//103404806-5
 
 	}
+	float calcularPolonesa(queue<string, allocator<string>> filaExp) {
+		stack<string, allocator<string>> pilhaDeCalculo;
+		string tokenAtual;
+		int tipoToken;
+		while (filaExp.empty() == false) {
+			tokenAtual = filaExp.front();
+			filaExp.pop();
+			tipoToken = getTipoToken(tokenAtual);
+			switch (tipoToken) {
+			case _NUMERO:
+				break;
+			case _OPERADOR:
+				break;
+			case _FUNCAO:
+				break;
+			}
+		}
+	}
+
 };
 

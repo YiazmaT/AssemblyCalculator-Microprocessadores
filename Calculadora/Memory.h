@@ -70,8 +70,8 @@ public:
 
 		if ((charAtual >= '0' && charAtual <= '9') || charAtual == ',')return 1;
 		if (charAtual >= 'a' && charAtual <= 'h')return 1;
-		if (charAtual >= 'i' && charAtual <= 'k')return 2;
-		if (charAtual >= 'l' && charAtual <= 'm')return 3;
+		if (charAtual >= 'i' && charAtual <= 'j')return 2;
+		if (charAtual >= 'k' && charAtual <= 'm')return 3;
 		if (charAtual >= 'n' && charAtual <= 'q')return 4;
 		if (charAtual >= 'r' && charAtual <= 'r')return 5;
 		if (charAtual >= 's' && charAtual <= 's')return 6;

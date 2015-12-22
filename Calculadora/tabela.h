@@ -1,23 +1,24 @@
 #pragma once
 
 //Operações que usam 1 char na string de exibição
-#define _DIV 'a'
-#define _MUL 'b'
-#define _SUB 'c'
-#define _ADD 'd'
-#define _OP  'e'
+#define _DIV 'a' //precedencia 2
+#define _MUL 'b' //precedencia 2
+#define _SUB 'c' //precedencia 1
+#define _ADD 'd' //precedencia 1
+#define _OP  'e' 
 #define _CP  'f'
-#define _XPOWY 'g'
-#define _FAT	'h'
+#define _XPOWY 'g' //precedencia 3
+#define _FAT	'h' //precedencia 4
 
 //Operações que usam 2 char na string de exibição
 #define _POW2	'i'
 #define _PI	'j'
-#define _EXP	'k'
 
 //Operações que usam 3 char na string de exibição
+#define _EXP 'k'
 #define _TG	'l'
 #define _LN	'm'
+
 
 //Operações que usam 4 char na string de exibição
 #define _SIN 'n'
@@ -33,3 +34,10 @@
 //Operações que usam 7 char na string de exibição
 #define _ARCCOS 't'
 #define _ARCSIN 'u'
+
+//Tipos de tokens
+#define _OPERADOR 1
+#define _ABRIR_PARENTESES 2
+#define _FECHAR_PARENTESES 3
+#define _NUMERO 4
+#define _FUNCAO 5

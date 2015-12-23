@@ -878,7 +878,7 @@ private: System::Void btnSqrt_Click(System::Object^  sender, System::EventArgs^ 
 }
 private: System::Void btnExp_Click(System::Object^  sender, System::EventArgs^  e) {
 	memoria->novoOperador(_EXP);
-	caixaTexto->Text += "e^";
+	caixaTexto->Text += "e^(";
 }
 private: System::Void btnLn_Click(System::Object^  sender, System::EventArgs^  e) {
 	memoria->novoOperador(_LN);
@@ -895,7 +895,7 @@ private: System::Void btnLog_Click(System::Object^  sender, System::EventArgs^  
 private: System::Void btnPow_Click(System::Object^  sender, System::EventArgs^  e) {
 	memoria->novoOperador(_XPOWY);
 	caixaTexto->Text += "^";
-}
+}          
 private: System::Void btnFact_Click(System::Object^  sender, System::EventArgs^  e) {
 	memoria->novoOperador(_FAT);
 	caixaTexto->Text += "!";

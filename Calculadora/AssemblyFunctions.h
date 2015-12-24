@@ -16,7 +16,7 @@ public:
 			finit
 			fld a
 			fld b
-			addp sp(1),sp(0)
+			faddp st(1),st(0)
 			fstp a
 		}
 		return a;
@@ -27,7 +27,7 @@ public:
 			finit
 			fld a
 			fld b
-			subp sp(1), sp(0)
+			fsubp st(1), st(0)
 			fstp a
 		}
 		return a;
@@ -59,7 +59,7 @@ public:
 		__asm {
 			finit
 			fld a
-			fsin st(0)
+			fsin
 			fstp a
 		}
 		return a;
@@ -69,7 +69,7 @@ public:
 		__asm {
 			finit
 			fld a
-			fcos st(0)
+			fcos
 			fstp a
 		}
 		return a;
@@ -79,7 +79,7 @@ public:
 		__asm {
 			finit
 			fld a
-			fsincos st(0)
+			fsincos
 			fdivp st(1), st(0)
 			fstp a
 		}
@@ -111,9 +111,9 @@ public:
 		__asm {
 			mov ecx, a
 			mov eax, 1
-			@loop:
+			a_loop:
 			mul ecx
-			loop @loop
+			loop a_loop
 			mov a, eax
 		}
 		return a;

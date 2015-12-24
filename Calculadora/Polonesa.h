@@ -3,6 +3,8 @@
 #include <stack>
 #include <queue>
 #include <vector>
+#include "AssemblyFunctions.h"
+#include <string>
 
 using namespace std;
 
@@ -26,7 +28,7 @@ public:
 		stack<string, allocator<string>> pilhaAuxiliar;
 		queue<string, allocator<string>> filaSaida;
 		string tokenAtual;
-		int posiAtual = 0;
+		unsigned int posiAtual = 0;
 		
 		while (posiAtual < expressaoOriginal->size()) {
 			tokenAtual = expressaoOriginal->at(posiAtual);
@@ -128,23 +130,36 @@ public:
 			//103404806-5
 
 	}
-	float calcularPolonesa(queue<string, allocator<string>> filaExp) {
+	string calcularPolonesa(queue<string, allocator<string>> filaExp) {
 		stack<string, allocator<string>> pilhaDeCalculo;
-		string tokenAtual;
+		string tokenAtual,operadorA,operadorB;
+		AssemblyFunctions operacoes;
 		int tipoToken;
+
 		while (filaExp.empty() == false) {
 			tokenAtual = filaExp.front();
 			filaExp.pop();
 			tipoToken = getTipoToken(tokenAtual);
 			switch (tipoToken) {
 			case _NUMERO:
+				pilhaDeCalculo.push(tokenAtual);
 				break;
 			case _OPERADOR:
+				switch (tokenAtual.front()) {
+				case _ADD:
+					operadorB = pilhaDeCalculo.top();
+					pilhaDeCalculo.pop();
+					operadorA = pilhaDeCalculo.top();
+					pilhaDeCalculo.pop();
+					pilhaDeCalculo.push(to_string(operacoes.soma(stof(operadorA), stof(operadorB))));
+					break;
+				}
 				break;
 			case _FUNCAO:
 				break;
 			}
 		}
+		return pilhaDeCalculo.top();
 	}
 
 };

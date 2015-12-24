@@ -812,7 +812,7 @@ private: System::Void btnClear_Click(System::Object^  sender, System::EventArgs^
 	memoria->clearMemory();
 }
 private: System::Void btnExecute_Click(System::Object^  sender, System::EventArgs^  e) {
-	//TODO
+	caixaTexto->Text = memoria->CalcularExpressao();
 }
 private: System::Void btnSignal_Click(System::Object^  sender, System::EventArgs^  e) {
 }

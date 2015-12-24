@@ -29,7 +29,10 @@
     <ClInclude Include="Memory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Polonesa.h">
+	<ClInclude Include="AssemblyFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+	<ClInclude Include="Polonesa.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

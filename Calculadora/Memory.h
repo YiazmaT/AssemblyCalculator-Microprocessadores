@@ -85,14 +85,15 @@ public:
 		expressao->resize(1);
 		expressao->back() = "";
 	}
-
+	
 	System::String^ CalcularExpressao(){
-		queue<string, allocator<string>> expPolonesa;
+		vector<string, allocator<string>> expPolonesa;
 		Polonesa converter;
 		expPolonesa = converter.conversaoNotacao(expressao);
 		this->clearMemory();
 		expressao->back() = converter.calcularPolonesa(expPolonesa);
 		return gcnew System::String(expressao->back().c_str());
 	}
+	
 };
 

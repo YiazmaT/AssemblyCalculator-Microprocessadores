@@ -23,10 +23,10 @@ public:
 	{
 	}
 
-	queue<string, allocator<string>> conversaoNotacao(vector<string, allocator<string>> *expressaoOriginal) {
+	vector<string, allocator<string>> conversaoNotacao(vector<string, allocator<string>> *expressaoOriginal) {
 		int tipoToken;
-		stack<string, allocator<string>> pilhaAuxiliar;
-		queue<string, allocator<string>> filaSaida;
+		vector<string, allocator<string>> pilhaAuxiliar;
+		vector<string, allocator<string>> filaSaida;
 		string tokenAtual;
 		unsigned int posiAtual = 0;
 		
@@ -37,48 +37,48 @@ public:
 			
 			switch (tipoToken) {
 			case _NUMERO:
-				filaSaida.push(tokenAtual);
+				filaSaida.push_back(tokenAtual);
 				break;
 			case _OPERADOR: {
 				string topoPilha;
-				if (pilhaAuxiliar.empty() == true)pilhaAuxiliar.push(tokenAtual);
+				if (pilhaAuxiliar.empty() == true)pilhaAuxiliar.push_back(tokenAtual);
 				else {
 					while (pilhaAuxiliar.empty() == false) {
-						topoPilha = pilhaAuxiliar.top();
+						topoPilha = pilhaAuxiliar.back();
 						if (topoPilha.front() == '(')break;
 						if (tokenAtual.front() == '^' && precedencia(tokenAtual, topoPilha) < 0) {
-							filaSaida.push(topoPilha);
-							pilhaAuxiliar.pop();
+							filaSaida.push_back(topoPilha);
+							pilhaAuxiliar.pop_back();
 						}else if (precedencia(tokenAtual, topoPilha) <= 0) {
-							filaSaida.push(topoPilha);
-							pilhaAuxiliar.pop();
+							filaSaida.push_back(topoPilha);
+							pilhaAuxiliar.pop_back();
 						}
 						else break;
 					}
-					pilhaAuxiliar.push(tokenAtual);
+					pilhaAuxiliar.push_back(tokenAtual);
 				}
 			}
 				break;
 			case _FUNCAO:
-				pilhaAuxiliar.push(tokenAtual);
-				pilhaAuxiliar.push("(");
+				pilhaAuxiliar.push_back(tokenAtual);
+				pilhaAuxiliar.push_back("(");
 				break;
 			case _ABRIR_PARENTESES:
-				pilhaAuxiliar.push(tokenAtual);
+				pilhaAuxiliar.push_back(tokenAtual);
 				break;
 			case _FECHAR_PARENTESES: {
 				string topoPilha;
-				topoPilha = pilhaAuxiliar.top();
+				topoPilha = pilhaAuxiliar.back();
 				while (topoPilha.front() != '(') {
-					filaSaida.push(topoPilha);
-					pilhaAuxiliar.pop();
-					topoPilha = pilhaAuxiliar.top();
+					filaSaida.push_back(topoPilha);
+					pilhaAuxiliar.pop_back();
+					topoPilha = pilhaAuxiliar.back();
 				}
-				pilhaAuxiliar.pop();
-				topoPilha = pilhaAuxiliar.top();
+				pilhaAuxiliar.pop_back();
+				topoPilha = pilhaAuxiliar.back();
 				if (getTipoToken(topoPilha) == _FUNCAO) {
-					filaSaida.push(topoPilha);
-					pilhaAuxiliar.pop();
+					filaSaida.push_back(topoPilha);
+					pilhaAuxiliar.pop_back();
 				}
 			}
 				break;
@@ -86,10 +86,11 @@ public:
 			}
 		}
 		while (pilhaAuxiliar.empty() == false) {
-			filaSaida.push(pilhaAuxiliar.top());
-			pilhaAuxiliar.pop();
+			filaSaida.push_back(pilhaAuxiliar.back());
+			pilhaAuxiliar.pop_back();
 		}
 		return filaSaida;
+
 	}
 
 	//menor que zero 'a' possui maior precedencia
@@ -130,36 +131,57 @@ public:
 			//103404806-5
 
 	}
-	string calcularPolonesa(queue<string, allocator<string>> filaExp) {
-		stack<string, allocator<string>> pilhaDeCalculo;
+	string calcularPolonesa(vector<string, allocator<string>> filaExp) {
+		vector<string, allocator<string>> pilhaDeCalculo;
 		string tokenAtual,operadorA,operadorB;
 		AssemblyFunctions operacoes;
 		int tipoToken;
 
 		while (filaExp.empty() == false) {
 			tokenAtual = filaExp.front();
-			filaExp.pop();
+			filaExp.erase(filaExp.begin());
 			tipoToken = getTipoToken(tokenAtual);
 			switch (tipoToken) {
 			case _NUMERO:
-				pilhaDeCalculo.push(tokenAtual);
+				pilhaDeCalculo.push_back(tokenAtual);
 				break;
 			case _OPERADOR:
 				switch (tokenAtual.front()) {
-				case _ADD:
-					operadorB = pilhaDeCalculo.top();
-					pilhaDeCalculo.pop();
-					operadorA = pilhaDeCalculo.top();
-					pilhaDeCalculo.pop();
-					pilhaDeCalculo.push(to_string(operacoes.soma(stof(operadorA), stof(operadorB))));
-					break;
+					
+					if (tokenAtual.front() != _FAT && tokenAtual.front() != _POW2){
+						operadorB = pilhaDeCalculo.back();
+						pilhaDeCalculo.pop_back();
+					}
+					operadorA = pilhaDeCalculo.back();
+					pilhaDeCalculo.pop_back();
+					
+					case _ADD:
+						pilhaDeCalculo.push_back(to_string(operacoes.soma(stof(operadorA), stof(operadorB))));
+						break;
+					case _MUL:		
+						pilhaDeCalculo.push_back(to_string(operacoes.multiplicacao(stof(operadorA), stof(operadorB))));
+						break;
+					case _SUB:
+						pilhaDeCalculo.push_back(to_string(operacoes.subtracao(stof(operadorA), stof(operadorB))));
+						break;
+					case _DIV:
+						pilhaDeCalculo.push_back(to_string(operacoes.divisao(stof(operadorA), stof(operadorB))));
+						break;
+					case _POW2:
+						operadorB = "2";
+					case _XPOWY:
+						break;
+					case _FAT:
+						break;
+						
 				}
 				break;
 			case _FUNCAO:
 				break;
 			}
 		}
-		return pilhaDeCalculo.top();
+		return pilhaDeCalculo.back();
+		
 	}
 
 };

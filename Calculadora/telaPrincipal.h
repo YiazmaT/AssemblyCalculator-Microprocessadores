@@ -815,6 +815,18 @@ private: System::Void btnExecute_Click(System::Object^  sender, System::EventArg
 	caixaTexto->Text = memoria->CalcularExpressao();
 }
 private: System::Void btnSignal_Click(System::Object^  sender, System::EventArgs^  e) {
+	int retorno = memoria->signal();
+	System::String ^novaString("");
+	if (retorno >= 0) {
+		novaString = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - retorno);
+		novaString += "(-";
+		novaString += caixaTexto->Text->Substring(caixaTexto->Text->Length - retorno);
+	}
+	else {
+		novaString = caixaTexto->Text->Substring(0, caixaTexto->Text->Length + retorno);
+		novaString += caixaTexto->Text->Substring(caixaTexto->Text->Length + retorno + 2);
+	}
+	caixaTexto->Text = novaString;
 }
 private: System::Void btn0_Click(System::Object^  sender, System::EventArgs^  e) {
 	bool retorno = memoria->inserirNovoNumero('0');
@@ -826,10 +838,10 @@ private: System::Void btn0_Click(System::Object^  sender, System::EventArgs^  e)
 private: System::Void btnDecimal_Click(System::Object^  sender, System::EventArgs^  e) {
 	int retorno = memoria->decimal();
 	if (retorno == 1) {
-		caixaTexto->Text += "0,";
+		caixaTexto->Text += "0.";
 	}
 	if(retorno == 0){
-		caixaTexto->Text += ",";
+		caixaTexto->Text += ".";
 	}
 }
 private: System::Void btnDiv_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -917,6 +929,7 @@ private: System::Void btnArcsin_Click(System::Object^  sender, System::EventArgs
 }
 private: System::Void btnBackspace_Click_1(System::Object^  sender, System::EventArgs^  e) {
 	int retorno = memoria->remover();
+	if (caixaTexto->Text->Length == retorno)caixaTexto->Text = "";
 	if (caixaTexto->Text->Length > 0) {
 		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - retorno);
 	}

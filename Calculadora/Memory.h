@@ -17,6 +17,24 @@ public:
 	~Memory();
 	
 	
+	int signal() {
+		if (expressao->empty() == true) expressao->push_back("");
+		string numAtual = expressao->back();
+		int tamString;
+		
+		if (numAtual.empty() != true) {
+			if (numAtual.at(0) == '(') {
+				tamString = numAtual.size();
+				expressao->back() = numAtual.substr(2, numAtual.length());
+				return -tamString;
+			}
+		}
+		tamString = numAtual.length();
+		expressao->back() = "(-" + expressao->back();
+		return tamString;
+		
+	}
+
 	bool inserirNovoNumero(char novoDig){
 		string stringAtual;
 		if (expressao->empty() == true)expressao->push_back("");
@@ -41,16 +59,18 @@ public:
 	int decimal() {
 		if (expressao->empty() == true)expressao->push_back("");
 		if (expressao->back().empty() == true) {
-			expressao->back() = "0,";
+			expressao->back() = "0.";
 			return 1;
 		}
-		if (expressao->back().find(',', 0) == -1) {
-			expressao->back() += ",";
+		if (expressao->back().find('.', 0) == -1) {
+			expressao->back() += ".";
 			return 0;
 		}
 		return 2;
 		
 	}
+
+
 
 	int remover() {
 		string stringAtual;
@@ -68,7 +88,7 @@ public:
 		charAtual = stringAtual.back();
 		expressao->back().pop_back();
 
-		if (stringAtual.empty() == true)expressao->pop_back();
+		if (expressao->back().empty() == true)expressao->pop_back();
 
 		if ((charAtual >= '0' && charAtual <= '9') || charAtual == ',')return 1;
 		if (charAtual >= 'a' && charAtual <= 'h')return 1;

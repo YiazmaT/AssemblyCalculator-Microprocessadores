@@ -107,16 +107,135 @@ public:
 		return a;
 	}
 
-	int fatorial(int a) {
+
+	float RaizNdeX(float x, float n) {
+		float constante_1 = 1;
 		__asm {
-			mov ecx, a
-			mov eax, 1
-			a_loop:
-			mul ecx
-			loop a_loop
-			mov a, eax
+			finit
+				fld constante_1
+				fld n
+				fdiv
+				fstp n
 		}
-		return a;
+
+		x = xElevadoAy(x, n);
+		return x;
 	}
+
+	float log(float x,float a) {
+		float constante_1 = 1;
+		__asm {
+			finit
+				fld constante_1
+				fld a
+				fyl2x
+				fld constante_1
+				fdiv st, st(1)
+				fld constante_1
+				fld x
+				fyl2x
+				fmul
+				fst x
+		}
+
+		return x;
+	}
+
+	float xElevadoAy(float x, float y) {
+		float constante_1 = 1;
+		__asm {
+			finit
+				fld y
+				fld constante_1
+				fld x
+				fyl2x
+				fmul
+				fld st(0)
+				frndint
+				fsub st(1), st
+				fxch
+				f2xm1
+				fld constante_1
+				fadd
+				fscale
+				fst x
+		}
+		return x;
+	}
+
+	int fatorial(int x) {
+			__asm {
+				finit
+					fldz
+					fld1
+					mov ecx, x
+
+					_loop :
+					fld1
+					faddp	st(1),st(0)
+					fmul st(1), st(0)
+
+					dec ax
+					jnz _loop
+
+					fstp x
+					fstp x
+			}
+			return x;
+	}
+
+	float arctg(float x) {
+		float const_1 = 1;
+		__asm {
+			finit
+				fld x
+				fld const_1
+				fpatan
+				fst x
+		}
+		return x;
+	}
+
+	float arcsin(float x) {
+		__asm {
+			finit
+				fld x
+				fld x
+				fmulp st(1), st(0)
+				fld1
+				fld st(1)
+				fsubp st(1), st(0)
+				fdivp st(1), st(0)
+
+				fsqrt st(0)
+				fld1
+				fpatan
+
+				fstp x
+		}
+		return x;
+	}
+
+	float arccos(float x) {
+		int y;
+		__asm {
+			finit
+				fld1
+				fld x
+				fld x
+				fmulp st(1), st(0)
+				fst y
+				fsubp st(1), st(0)
+				fld y
+				fdivp st(1), st(0)
+				fsqrt st(0)
+				fld1
+				fpatan
+
+				fstp x
+		}
+		return x;
+	}
+
 };
 

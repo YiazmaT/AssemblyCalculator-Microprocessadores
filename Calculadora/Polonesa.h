@@ -6,6 +6,8 @@
 #include "AssemblyFunctions.h"
 #include <string>
 
+#define euler 2.7182818284
+#define CONSTPI	  "3.14159265359"
 using namespace std;
 
 class Polonesa
@@ -29,14 +31,16 @@ public:
 		vector<string, allocator<string>> filaSaida;
 		string tokenAtual;
 		unsigned int posiAtual = 0;
-		
+
 		while (posiAtual < expressaoOriginal->size()) {
 			tokenAtual = expressaoOriginal->at(posiAtual);
 			posiAtual++;
+			if (tokenAtual.empty() == true)continue;
 			tipoToken = getTipoToken(tokenAtual);
 			
 			switch (tipoToken) {
 			case _NUMERO:
+				if (tokenAtual.at(0) == _PI)tokenAtual = CONSTPI;
 				filaSaida.push_back(tokenAtual);
 				break;
 			case _OPERADOR: {
@@ -46,10 +50,10 @@ public:
 					while (pilhaAuxiliar.empty() == false) {
 						topoPilha = pilhaAuxiliar.back();
 						if (topoPilha.front() == '(')break;
-						if (tokenAtual.front() == '^' && precedencia(tokenAtual, topoPilha) < 0) {
+						if (tokenAtual.front() == '^' && precedencia(tokenAtual, topoPilha) > 0) {
 							filaSaida.push_back(topoPilha);
 							pilhaAuxiliar.pop_back();
-						}else if (precedencia(tokenAtual, topoPilha) <= 0) {
+						}else if (precedencia(tokenAtual, topoPilha) >= 0) {
 							filaSaida.push_back(topoPilha);
 							pilhaAuxiliar.pop_back();
 						}
@@ -85,12 +89,13 @@ public:
 
 			}
 		}
+
 		while (pilhaAuxiliar.empty() == false) {
 			filaSaida.push_back(pilhaAuxiliar.back());
 			pilhaAuxiliar.pop_back();
 		}
+		
 		return filaSaida;
-
 	}
 
 	//menor que zero 'a' possui maior precedencia
@@ -128,9 +133,8 @@ public:
 		if ((primeiroCharString >= 'a' && primeiroCharString <= 'i'))return _OPERADOR;
 
 		return _FUNCAO;
-			//103404806-5
-
 	}
+
 	string calcularPolonesa(vector<string, allocator<string>> filaExp) {
 		vector<string, allocator<string>> pilhaDeCalculo;
 		string tokenAtual,operadorA,operadorB;
@@ -146,15 +150,14 @@ public:
 				pilhaDeCalculo.push_back(tokenAtual);
 				break;
 			case _OPERADOR:
-				switch (tokenAtual.front()) {
-					
-					if (tokenAtual.front() != _FAT && tokenAtual.front() != _POW2){
-						operadorB = pilhaDeCalculo.back();
-						pilhaDeCalculo.pop_back();
-					}
-					operadorA = pilhaDeCalculo.back();
+				if (tokenAtual.front() != _FAT && tokenAtual.front() != _POW2) {
+					operadorB = pilhaDeCalculo.back();
 					pilhaDeCalculo.pop_back();
-					
+				}
+				operadorA = pilhaDeCalculo.back();
+				pilhaDeCalculo.pop_back();
+			case _FUNCAO:
+				switch (tokenAtual.front()) {					
 					case _ADD:
 						pilhaDeCalculo.push_back(to_string(operacoes.soma(stof(operadorA), stof(operadorB))));
 						break;
@@ -168,15 +171,48 @@ public:
 						pilhaDeCalculo.push_back(to_string(operacoes.divisao(stof(operadorA), stof(operadorB))));
 						break;
 					case _POW2:
-						operadorB = "2";
+						pilhaDeCalculo.push_back(to_string(operacoes.xElevadoAoQuadrado(stof(operadorA))));
+						break;
 					case _XPOWY:
+						pilhaDeCalculo.push_back(to_string(operacoes.xElevadoAy(stof(operadorA), stof(operadorB))));
 						break;
 					case _FAT:
+						pilhaDeCalculo.push_back(to_string(operacoes.fatorial(stof(operadorA))));
 						break;
-						
+					case _EXP:
+						pilhaDeCalculo.push_back(to_string(operacoes.xElevadoAy(euler, stof(operadorA))));
+						break;
+					case _TG:
+						pilhaDeCalculo.push_back(to_string(operacoes.tg(stof(operadorA))));
+						break;
+					case _LN:
+						pilhaDeCalculo.push_back(to_string(operacoes.log(stof(operadorA), euler)));
+						break;
+					case _SIN:
+						pilhaDeCalculo.push_back(to_string(operacoes.sin(stof(operadorA))));
+						break;
+					case _COS:
+						pilhaDeCalculo.push_back(to_string(operacoes.cos(stof(operadorA))));
+						break;
+					case _LOG:
+						pilhaDeCalculo.push_back(to_string(operacoes.log(stof(operadorA),10)));
+						break;
+					case _NROOT:
+						pilhaDeCalculo.push_back(to_string(operacoes.RaizNdeX(stof(operadorA), stof(operadorB))));
+						break;
+					case _SQRT:
+						pilhaDeCalculo.push_back(to_string(operacoes.sqrt(stof(operadorA))));
+						break;
+					case _ARCTG:
+						pilhaDeCalculo.push_back(to_string(operacoes.arctg(stof(operadorA))));
+						break;
+					case _ARCCOS:
+						//TODO--------------------------------------------------------------------------
+						break;
+					case _ARCSIN:
+						//TODO--------------------------------------------------------------------------
+						break;
 				}
-				break;
-			case _FUNCAO:
 				break;
 			}
 		}

@@ -75,7 +75,7 @@ namespace Calculadora {
 
 
 
-	private: System::Windows::Forms::Button^  btnSqrt;
+
 
 	private: System::Windows::Forms::Button^  btnCos;
 	private: System::Windows::Forms::Button^  btnDiv;
@@ -114,6 +114,8 @@ namespace Calculadora {
 	private: System::Windows::Forms::Button^  btn4;
 	private: System::Windows::Forms::Button^  btnNRoot;
 	private: System::Windows::Forms::Button^  btnLn;
+	private: System::Windows::Forms::Button^  btnSqrt;
+
 
 
 
@@ -152,7 +154,6 @@ namespace Calculadora {
 			this->btnSignal = (gcnew System::Windows::Forms::Button());
 			this->btnPow = (gcnew System::Windows::Forms::Button());
 			this->btnSqrd = (gcnew System::Windows::Forms::Button());
-			this->btnSqrt = (gcnew System::Windows::Forms::Button());
 			this->btnCos = (gcnew System::Windows::Forms::Button());
 			this->btnDiv = (gcnew System::Windows::Forms::Button());
 			this->btnMul = (gcnew System::Windows::Forms::Button());
@@ -177,6 +178,7 @@ namespace Calculadora {
 			this->btn4 = (gcnew System::Windows::Forms::Button());
 			this->btnNRoot = (gcnew System::Windows::Forms::Button());
 			this->btnLn = (gcnew System::Windows::Forms::Button());
+			this->btnSqrt = (gcnew System::Windows::Forms::Button());
 			this->groupBox1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -373,19 +375,6 @@ namespace Calculadora {
 			this->btnSqrd->UseVisualStyleBackColor = false;
 			this->btnSqrd->Click += gcnew System::EventHandler(this, &telaPrincipal::btnSqrd_Click);
 			// 
-			// btnSqrt
-			// 
-			this->btnSqrt->BackColor = System::Drawing::SystemColors::ControlLightLight;
-			this->btnSqrt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->btnSqrt->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSqrt.Image")));
-			this->btnSqrt->Location = System::Drawing::Point(247, 156);
-			this->btnSqrt->Name = L"btnSqrt";
-			this->btnSqrt->Size = System::Drawing::Size(49, 28);
-			this->btnSqrt->TabIndex = 16;
-			this->btnSqrt->UseVisualStyleBackColor = false;
-			this->btnSqrt->Click += gcnew System::EventHandler(this, &telaPrincipal::btnSqrt_Click);
-			// 
 			// btnCos
 			// 
 			this->btnCos->BackColor = System::Drawing::SystemColors::ControlLightLight;
@@ -580,6 +569,7 @@ namespace Calculadora {
 			this->btnPi->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnPi.Image")));
 			this->btnPi->Location = System::Drawing::Point(192, 68);
 			this->btnPi->Name = L"btnPi";
+			this->btnPi->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->btnPi->Size = System::Drawing::Size(49, 28);
 			this->btnPi->TabIndex = 36;
 			this->btnPi->UseVisualStyleBackColor = false;
@@ -636,7 +626,9 @@ namespace Calculadora {
 			// 
 			// btnBackspace
 			// 
+			this->btnBackspace->AccessibleDescription = L"";
 			this->btnBackspace->BackColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnBackspace->ForeColor = System::Drawing::SystemColors::ControlText;
 			this->btnBackspace->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnBackspace.Image")));
 			this->btnBackspace->Location = System::Drawing::Point(12, 68);
 			this->btnBackspace->Name = L"btnBackspace";
@@ -656,6 +648,7 @@ namespace Calculadora {
 			this->btn4->TabIndex = 42;
 			this->btn4->Text = L"4";
 			this->btn4->UseVisualStyleBackColor = false;
+			this->btn4->Click += gcnew System::EventHandler(this, &telaPrincipal::btn4_Click_1);
 			// 
 			// btnNRoot
 			// 
@@ -668,6 +661,7 @@ namespace Calculadora {
 			this->btnNRoot->Size = System::Drawing::Size(49, 28);
 			this->btnNRoot->TabIndex = 43;
 			this->btnNRoot->UseVisualStyleBackColor = false;
+			this->btnNRoot->Click += gcnew System::EventHandler(this, &telaPrincipal::btnNRoot_Click);
 			// 
 			// btnLn
 			// 
@@ -680,6 +674,20 @@ namespace Calculadora {
 			this->btnLn->TabIndex = 44;
 			this->btnLn->Text = L"ln (x)";
 			this->btnLn->UseVisualStyleBackColor = false;
+			this->btnLn->Click += gcnew System::EventHandler(this, &telaPrincipal::btnLn_Click);
+			// 
+			// btnSqrt
+			// 
+			this->btnSqrt->BackColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnSqrt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->btnSqrt->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSqrt.Image")));
+			this->btnSqrt->Location = System::Drawing::Point(247, 156);
+			this->btnSqrt->Name = L"btnSqrt";
+			this->btnSqrt->Size = System::Drawing::Size(49, 28);
+			this->btnSqrt->TabIndex = 16;
+			this->btnSqrt->UseVisualStyleBackColor = false;
+			this->btnSqrt->Click += gcnew System::EventHandler(this, &telaPrincipal::btnSqrt_Click);
 			// 
 			// telaPrincipal
 			// 
@@ -725,7 +733,6 @@ namespace Calculadora {
 			this->Controls->Add(this->btn7);
 			this->Controls->Add(this->btnExecute);
 			this->Controls->Add(this->btnClear);
-			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
 			this->Name = L"telaPrincipal";
 			this->Text = L"Calculadora";
@@ -739,10 +746,6 @@ namespace Calculadora {
 		}
 #pragma endregion
 
-private: System::Void btnNRoot_Click(System::Object^  sender, System::EventArgs^  e) {
-	memoria->novoOperador(_NROOT);
-	caixaTexto->Text += "^(1/";
-}
 private: System::Void btn2_Click(System::Object^  sender, System::EventArgs^  e) {
 	bool retorno = memoria->inserirNovoNumero('2');
 	if (retorno == true) {
@@ -812,7 +815,9 @@ private: System::Void btnClear_Click(System::Object^  sender, System::EventArgs^
 	memoria->clearMemory();
 }
 private: System::Void btnExecute_Click(System::Object^  sender, System::EventArgs^  e) {
-	caixaTexto->Text = memoria->CalcularExpressao();
+	std::string resultado;
+	resultado = memoria->CalcularExpressao();
+	caixaTexto->Text = gcnew String(resultado.c_str());
 }
 private: System::Void btnSignal_Click(System::Object^  sender, System::EventArgs^  e) {
 	int retorno = memoria->signal();
@@ -892,10 +897,6 @@ private: System::Void btnExp_Click(System::Object^  sender, System::EventArgs^  
 	memoria->novoOperador(_EXP);
 	caixaTexto->Text += "e^(";
 }
-private: System::Void btnLn_Click(System::Object^  sender, System::EventArgs^  e) {
-	memoria->novoOperador(_LN);
-	caixaTexto->Text += "ln(";
-}
 private: System::Void btnSqrd_Click(System::Object^  sender, System::EventArgs^  e) {
 	memoria->novoOperador(_POW2);
 	caixaTexto->Text += "^2";
@@ -933,6 +934,25 @@ private: System::Void btnBackspace_Click_1(System::Object^  sender, System::Even
 	if (caixaTexto->Text->Length > 0) {
 		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - retorno);
 	}
+}
+private: System::Void btnLn_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_LN);
+	caixaTexto->Text += "ln(";
+}
+private: System::Void btnNRoot_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_NROOT);
+	caixaTexto->Text += "^(1/";
+}
+private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+	memoria->novoOperador(_LN);
+	caixaTexto->Text += "ln(";
+}
+private: System::Void btn4_Click_1(System::Object^  sender, System::EventArgs^  e) {
+	bool retorno = memoria->inserirNovoNumero('4');
+	if (retorno == true) {
+		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
+	}
+	caixaTexto->Text += "4";
 }
 };
 }

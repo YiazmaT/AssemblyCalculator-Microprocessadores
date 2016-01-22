@@ -6,8 +6,6 @@
 #include "AssemblyFunctions.h"
 #include <string>
 
-#define euler 2.7182818284
-#define CONSTPI	  "3.14159265359"
 using namespace std;
 
 class Polonesa
@@ -40,7 +38,7 @@ public:
 			
 			switch (tipoToken) {
 			case _NUMERO:
-				if (tokenAtual.at(0) == _PI)tokenAtual = CONSTPI;
+				if (tokenAtual.at(0) == _PI)tokenAtual = to_string(CONSTPI);
 				filaSaida.push_back(tokenAtual);
 				break;
 			case _OPERADOR: {
@@ -65,7 +63,8 @@ public:
 				break;
 			case _FUNCAO:
 				pilhaAuxiliar.push_back(tokenAtual);
-				pilhaAuxiliar.push_back("(");
+				tokenAtual = _OP;
+				pilhaAuxiliar.push_back(tokenAtual);
 				break;
 			case _ABRIR_PARENTESES:
 				pilhaAuxiliar.push_back(tokenAtual);
@@ -73,7 +72,7 @@ public:
 			case _FECHAR_PARENTESES: {
 				string topoPilha;
 				topoPilha = pilhaAuxiliar.back();
-				while (topoPilha.front() != '(') {
+				while (topoPilha.front() != _OP) {
 					filaSaida.push_back(topoPilha);
 					pilhaAuxiliar.pop_back();
 					topoPilha = pilhaAuxiliar.back();
@@ -126,9 +125,9 @@ public:
 		if ( (primeiroCharString >= '0' && primeiroCharString <= '9')
 			|| primeiroCharString == _PI )return _NUMERO;
 
-		if (primeiroCharString == '(')return _ABRIR_PARENTESES;
+		if (primeiroCharString == _OP)return _ABRIR_PARENTESES;
 
-		if (primeiroCharString == ')')return _FECHAR_PARENTESES;
+		if (primeiroCharString == _CP)return _FECHAR_PARENTESES;
 
 		if ((primeiroCharString >= 'a' && primeiroCharString <= 'i'))return _OPERADOR;
 
@@ -150,13 +149,18 @@ public:
 				pilhaDeCalculo.push_back(tokenAtual);
 				break;
 			case _OPERADOR:
-				if (tokenAtual.front() != _FAT && tokenAtual.front() != _POW2) {
+				if (tokenAtual.front() != _FAT && tokenAtual.front() != _POW2){
+					operadorB = pilhaDeCalculo.back();
+					pilhaDeCalculo.pop_back();
+				}
+			case _FUNCAO:
+				if ((tokenAtual.front() == _NROOT || tokenAtual.front() == _XPOWY) && tipoToken == _FUNCAO) {
 					operadorB = pilhaDeCalculo.back();
 					pilhaDeCalculo.pop_back();
 				}
 				operadorA = pilhaDeCalculo.back();
 				pilhaDeCalculo.pop_back();
-			case _FUNCAO:
+				
 				switch (tokenAtual.front()) {					
 					case _ADD:
 						pilhaDeCalculo.push_back(to_string(operacoes.soma(stof(operadorA), stof(operadorB))));
@@ -198,7 +202,7 @@ public:
 						pilhaDeCalculo.push_back(to_string(operacoes.log(stof(operadorA),10)));
 						break;
 					case _NROOT:
-						pilhaDeCalculo.push_back(to_string(operacoes.RaizNdeX(stof(operadorA), stof(operadorB))));
+						pilhaDeCalculo.push_back(to_string(operacoes.RaizNdeX(stof(operadorA),stof(operadorB))));
 						break;
 					case _SQRT:
 						pilhaDeCalculo.push_back(to_string(operacoes.sqrt(stof(operadorA))));
@@ -207,10 +211,10 @@ public:
 						pilhaDeCalculo.push_back(to_string(operacoes.arctg(stof(operadorA))));
 						break;
 					case _ARCCOS:
-						//TODO--------------------------------------------------------------------------
+						pilhaDeCalculo.push_back(to_string(operacoes.arccos(stof(operadorA))));
 						break;
 					case _ARCSIN:
-						//TODO--------------------------------------------------------------------------
+						pilhaDeCalculo.push_back(to_string(operacoes.arcsin(stof(operadorA))));
 						break;
 				}
 				break;

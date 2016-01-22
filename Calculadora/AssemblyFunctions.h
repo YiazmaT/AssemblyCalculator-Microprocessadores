@@ -134,7 +134,7 @@ public:
 				fld x
 				fyl2x
 				fmul
-				fst x
+				fstp x
 		}
 
 		return x;
@@ -148,7 +148,7 @@ public:
 				fld x
 				fyl2x
 				fmul
-				fld st(0)
+				fld st
 				frndint
 				fsub st(1), st
 				fxch
@@ -156,10 +156,10 @@ public:
 				fld1
 				fadd
 				fscale
-				fst x
+				fstp x
 		}
 		return x;
-	}
+}
 
 	float fatorial(int x) {
 		float result;

@@ -7,10 +7,7 @@ using namespace std;
 int main(void) {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
-	//HAN SOLO MORRE! :/
-	//Calculadora::telaPrincipal form;
 	Calculadora::telaPrincipal form;
-
 	Application::Run(%form);
 
 	return 0;

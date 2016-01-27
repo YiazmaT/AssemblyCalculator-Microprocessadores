@@ -41,6 +41,7 @@
 #define _FECHAR_PARENTESES 3
 #define _NUMERO 4
 #define _FUNCAO 5
+#define _NUMEROSINAL 6
 
 
 #define euler 2.7182818284

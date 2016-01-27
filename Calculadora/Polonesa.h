@@ -27,7 +27,7 @@ public:
 		int tipoToken;
 		vector<string, allocator<string>> pilhaAuxiliar;
 		vector<string, allocator<string>> filaSaida;
-		string tokenAtual;
+		string tokenAtual,topoPilha;
 		unsigned int posiAtual = 0;
 
 		while (posiAtual < expressaoOriginal->size()) {
@@ -41,8 +41,12 @@ public:
 				if (tokenAtual.at(0) == _PI)tokenAtual = to_string(CONSTPI);
 				filaSaida.push_back(tokenAtual);
 				break;
-			case _OPERADOR: {
-				string topoPilha;
+			case _NUMEROSINAL:
+				topoPilha = _OP;
+				pilhaAuxiliar.push_back(topoPilha);
+				pilhaAuxiliar.push_back(tokenAtual.substr(1));
+				break;
+			case _OPERADOR: 
 				if (pilhaAuxiliar.empty() == true)pilhaAuxiliar.push_back(tokenAtual);
 				else {
 					while (pilhaAuxiliar.empty() == false) {
@@ -59,7 +63,6 @@ public:
 					}
 					pilhaAuxiliar.push_back(tokenAtual);
 				}
-			}
 				break;
 			case _FUNCAO:
 				pilhaAuxiliar.push_back(tokenAtual);
@@ -69,8 +72,7 @@ public:
 			case _ABRIR_PARENTESES:
 				pilhaAuxiliar.push_back(tokenAtual);
 				break;
-			case _FECHAR_PARENTESES: {
-				string topoPilha;
+			case _FECHAR_PARENTESES: 
 				topoPilha = pilhaAuxiliar.back();
 				while (topoPilha.front() != _OP) {
 					filaSaida.push_back(topoPilha);
@@ -78,12 +80,12 @@ public:
 					topoPilha = pilhaAuxiliar.back();
 				}
 				pilhaAuxiliar.pop_back();
+				if (pilhaAuxiliar.empty() == true)break;
 				topoPilha = pilhaAuxiliar.back();
 				if (getTipoToken(topoPilha) == _FUNCAO) {
 					filaSaida.push_back(topoPilha);
 					pilhaAuxiliar.pop_back();
 				}
-			}
 				break;
 
 			}
@@ -122,8 +124,10 @@ public:
 	int getTipoToken(string tokenAtual) {
 		char primeiroCharString = tokenAtual.at(0);
 
+		if (primeiroCharString == '(')return _NUMEROSINAL;
+
 		if ( (primeiroCharString >= '0' && primeiroCharString <= '9')
-			|| primeiroCharString == _PI )return _NUMERO;
+			|| primeiroCharString == _PI || primeiroCharString == '-')return _NUMERO;
 
 		if (primeiroCharString == _OP)return _ABRIR_PARENTESES;
 
@@ -134,7 +138,7 @@ public:
 		return _FUNCAO;
 	}
 
-	string calcularPolonesa(vector<string, allocator<string>> filaExp) {
+	string calcularPolonesa(vector<string, allocator<string>> filaExp,int isRadiano) {
 		vector<string, allocator<string>> pilhaDeCalculo;
 		string tokenAtual,operadorA,operadorB;
 		AssemblyFunctions operacoes;
@@ -187,16 +191,16 @@ public:
 						pilhaDeCalculo.push_back(to_string(operacoes.xElevadoAy(euler, stof(operadorA))));
 						break;
 					case _TG:
-						pilhaDeCalculo.push_back(to_string(operacoes.tg(stof(operadorA))));
+						pilhaDeCalculo.push_back(to_string(operacoes.tg(stof(operadorA), isRadiano)));
 						break;
 					case _LN:
 						pilhaDeCalculo.push_back(to_string(operacoes.log(stof(operadorA), euler)));
 						break;
 					case _SIN:
-						pilhaDeCalculo.push_back(to_string(operacoes.sin(stof(operadorA))));
+						pilhaDeCalculo.push_back(to_string(operacoes.sin(stof(operadorA),isRadiano)));
 						break;
 					case _COS:
-						pilhaDeCalculo.push_back(to_string(operacoes.cos(stof(operadorA))));
+						pilhaDeCalculo.push_back(to_string(operacoes.cos(stof(operadorA), isRadiano)));
 						break;
 					case _LOG:
 						pilhaDeCalculo.push_back(to_string(operacoes.log(stof(operadorA),10)));
@@ -208,13 +212,13 @@ public:
 						pilhaDeCalculo.push_back(to_string(operacoes.sqrt(stof(operadorA))));
 						break;
 					case _ARCTG:
-						pilhaDeCalculo.push_back(to_string(operacoes.arctg(stof(operadorA))));
+						pilhaDeCalculo.push_back(to_string(operacoes.arctg(stof(operadorA), isRadiano)));
 						break;
 					case _ARCCOS:
-						pilhaDeCalculo.push_back(to_string(operacoes.arccos(stof(operadorA))));
+						pilhaDeCalculo.push_back(to_string(operacoes.arccos(stof(operadorA), isRadiano)));
 						break;
 					case _ARCSIN:
-						pilhaDeCalculo.push_back(to_string(operacoes.arcsin(stof(operadorA))));
+						pilhaDeCalculo.push_back(to_string(operacoes.arcsin(stof(operadorA), isRadiano)));
 						break;
 				}
 				break;

@@ -56,33 +56,65 @@ public:
 		return a;
 	}
 
-	float sin(float a) {
+	float sin(float a,int isRadiano) {
 		__asm {
 			finit
 			fld a
-			fsin
-			fstp a
+			mov eax, isRadiano
+			sub eax, 1
+			jz _GRAU
+			JMP _RADIANO
+			
+			_GRAU:
+				call AssemblyGrauRaidano
+				JMP _RADIANO
+			
+			_RADIANO:
+				fsin
+				fstp a
 		}
 		return a;
 	}
 
-	float cos(float a) {
+	float cos(float a,int isRadiano) {
 		__asm {
 			finit
 			fld a
-			fcos
-			fstp a
+			mov eax, isRadiano
+			sub eax, 1
+			jz _GRAU
+			JMP _RADIANO
+
+			_GRAU :
+				call AssemblyGrauRaidano
+				JMP _RADIANO
+
+			_RADIANO :
+
+				fcos
+				fstp a
 		}
 		return a;
 	}
 
-	float tg(float a) {
+	float tg(float a,int isRadiano) {
 		__asm {
 			finit
 			fld a
-			fsincos
-			fdivp st(1), st(0)
-			fstp a
+			mov eax, isRadiano
+			sub eax, 1
+			jz _GRAU
+			JMP _RADIANO
+
+			_GRAU :
+				call AssemblyGrauRaidano
+				JMP _RADIANO
+
+			_RADIANO :
+				
+				fsincos
+				fdivp st(1), st(0)
+				fstp a
 		}
 		return a;
 	}
@@ -183,18 +215,28 @@ public:
 			return result;
 	}
 
-	float arctg(float x) {
+	float arctg(float x, int isRadiano) {
 		__asm {
 			finit
 				fld x
 				fld1
 				fpatan
-				fst x
+				mov eax, isRadiano
+				sub eax, 1
+				jz _GRAU
+				jmp _RADIANO
+				
+				_GRAU:
+					call AssemblyRadianoGrau
+					JMP _RADIANO
+
+				_RADIANO:
+					fst x
 		}
 		return x;
 	}
 
-	float arcsin(float x) {
+	float arcsin(float x, int isRadiano) {
 		__asm {
 			finit
 				fld x
@@ -209,12 +251,22 @@ public:
 				fld1
 				fpatan
 
-				fstp x
+				mov eax, isRadiano
+				sub eax, 1
+				jz _GRAU
+				jmp _RADIANO
+
+				_GRAU :
+			call AssemblyRadianoGrau
+				JMP _RADIANO
+
+				_RADIANO :
+			fst x
 		}
 		return x;
 	}
 
-	float arccos(float x) {
+	float arccos(float x, int isRadiano) {
 		int y;
 		__asm {
 			
@@ -231,10 +283,42 @@ public:
 				fld1
 				fpatan
 
-				fstp x
+				mov eax, isRadiano
+				sub eax, 1
+				jz _GRAU
+				jmp _RADIANO
+
+				_GRAU :
+			call AssemblyRadianoGrau
+				JMP _RADIANO
+
+				_RADIANO :
+			fst x
 		}
 		return x;
 	}
+
+	void AssemblyGrauRaidano() {
+		float constante = 180;
+		__asm {
+			fldpi
+			fmulp st(1), st(0)
+			fld constante
+			fdivp st(1), st(0)
+		}
+		return;
+	}
+
+	void AssemblyRadianoGrau() {
+		float constante = 180;
+		__asm {
+			fld constante
+			fmulp st(1), st(0)
+			fldpi
+			fdivp st(1), st(0)
+		}
+	}
+
 
 	float converteGrauRadiano(float grau) {
 		float constante = 180;

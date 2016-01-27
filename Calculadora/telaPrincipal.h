@@ -648,7 +648,7 @@ namespace Calculadora {
 			this->btn4->TabIndex = 42;
 			this->btn4->Text = L"4";
 			this->btn4->UseVisualStyleBackColor = false;
-			this->btn4->Click += gcnew System::EventHandler(this, &telaPrincipal::btn4_Click_1);
+			this->btn4->Click += gcnew System::EventHandler(this, &telaPrincipal::btn4_Click);
 			// 
 			// btnNRoot
 			// 
@@ -745,14 +745,7 @@ namespace Calculadora {
 
 		}
 #pragma endregion
-
-private: System::Void btn2_Click(System::Object^  sender, System::EventArgs^  e) {
-	bool retorno = memoria->inserirNovoNumero('2');
-	if (retorno == true) {
-		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
-	}	
-	caixaTexto->Text += "2";
-}
+//Botões numericos
 private: System::Void btn1_Click(System::Object^  sender, System::EventArgs^  e) {
 	bool retorno = memoria->inserirNovoNumero('1');
 	if (retorno == true) {
@@ -760,6 +753,14 @@ private: System::Void btn1_Click(System::Object^  sender, System::EventArgs^  e)
 	}
 	caixaTexto->Text += "1";
 }
+private: System::Void btn2_Click(System::Object^  sender, System::EventArgs^  e) {
+	bool retorno = memoria->inserirNovoNumero('2');
+	if (retorno == true) {
+		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
+	}	
+	caixaTexto->Text += "2";
+}
+
 private: System::Void btn3_Click(System::Object^  sender, System::EventArgs^  e) {
 	bool retorno = memoria->inserirNovoNumero('3');
 	if (retorno == true) {
@@ -810,13 +811,26 @@ private: System::Void btn9_Click(System::Object^  sender, System::EventArgs^  e)
 	caixaTexto->Text += "9";
 	
 }
+private: System::Void btn0_Click(System::Object^  sender, System::EventArgs^  e) {
+	bool retorno = memoria->inserirNovoNumero('0');
+	if (retorno == true) {
+		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
+	}
+	caixaTexto->Text += "0";
+}
+//Fim dos botões numericos
+
 private: System::Void btnClear_Click(System::Object^  sender, System::EventArgs^  e) {
 	caixaTexto->Text = "";
 	memoria->clearMemory();
 }
 private: System::Void btnExecute_Click(System::Object^  sender, System::EventArgs^  e) {
 	std::string resultado;
-	resultado = memoria->CalcularExpressao();
+	int isRadiano;
+	if (radioRadiano->Checked == true)isRadiano = 2;
+	else isRadiano = 1;
+
+	resultado = memoria->CalcularExpressao(isRadiano);
 	caixaTexto->Text = gcnew String(resultado.c_str());
 }
 private: System::Void btnSignal_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -833,13 +847,7 @@ private: System::Void btnSignal_Click(System::Object^  sender, System::EventArgs
 	}
 	caixaTexto->Text = novaString;
 }
-private: System::Void btn0_Click(System::Object^  sender, System::EventArgs^  e) {
-	bool retorno = memoria->inserirNovoNumero('0');
-	if (retorno == true) {
-		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
-	}
-	caixaTexto->Text += "0";
-}
+
 private: System::Void btnDecimal_Click(System::Object^  sender, System::EventArgs^  e) {
 	int retorno = memoria->decimal();
 	if (retorno == 1) {
@@ -946,13 +954,6 @@ private: System::Void btnNRoot_Click(System::Object^  sender, System::EventArgs^
 private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 	memoria->novoOperador(_LN);
 	caixaTexto->Text += "ln(";
-}
-private: System::Void btn4_Click_1(System::Object^  sender, System::EventArgs^  e) {
-	bool retorno = memoria->inserirNovoNumero('4');
-	if (retorno == true) {
-		caixaTexto->Text = caixaTexto->Text->Substring(0, caixaTexto->Text->Length - 1);
-	}
-	caixaTexto->Text += "4";
 }
 };
 }

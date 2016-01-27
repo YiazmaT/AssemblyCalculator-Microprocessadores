@@ -106,12 +106,14 @@ public:
 		expressao->back() = "";
 	}
 	
-	string CalcularExpressao(){
+	//Se isRadiano == 2 então esta sendo usado radiano
+	//se isRadiano == 1 então esta sendo usado graus
+	string CalcularExpressao(int isRadiano){
 		vector<string, allocator<string>> expPolonesa;
 		Polonesa converter;
 		expPolonesa = converter.conversaoNotacao(expressao);
 		this->clearMemory();
-		expressao->back() = converter.calcularPolonesa(expPolonesa);
+		expressao->back() = converter.calcularPolonesa(expPolonesa,isRadiano);
 		string resultado = expressao->back();
 		return expressao->back();
 	}
